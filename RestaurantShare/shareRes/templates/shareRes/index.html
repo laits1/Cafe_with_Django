@@ -216,8 +216,8 @@
                         </div>
                         
                         <ul class="restaurantListDiv nav nav-pills nav-stacked">
-
-                            <li class="category deactive">한식</li>
+                            {% for category in categories %}
+                            <li class="category deactive">{{category.category_name}}</li>
                             <ul class="restaurantList">
 
                                 <div class="input-group">
@@ -228,7 +228,7 @@
                                 </div>
 
                             </ul>
-
+                            {% endfor %}
                         </ul>
                         <a href="restaurantCreate/" class="sendBtn btn btn-info" role="button">맛집 추가하기</a>
                     </div>
