@@ -16,18 +16,37 @@ def index(request) :
 
     return render(request, 'shareRes/index.html', content)
     # return HttpResponse('index')
-    
+
+def Create_restaurant(request) :
+    return HttpResponse('맛집 DB 저장합니다')
+
 def restaurantDetail(request) :
     # return HttpResponse('restaurantDetail')
     return render(request, 'shareRes/restaurantDetail.html')
 
 def restaurantCreate(request) :
     # return HttpResponse('restaurantCreate')
-    return render(request, 'shareRes/restaurantCreate.html')
+    categories = Category.objects.all()
+    content = {'categories': categories}
+
+    return render(request, 'shareRes/restaurantCreate.html', content)
 
 def categoryCreate(request) :
+
+    categories = Category.objects.all() # categories 변수에는 Category 테이블의 모든 레코드를 반환받아서 저장
+    # Category  테이블 컬럼 : id , category_name
+
+    content = {'categories' : categories}
+    return render(request, 'shareRes/categoryCreate.html', content) 
+
     # return HttpResponse('categoryCreate')
-    return render(request, 'shareRes/categoryCreate.html')
+    
+
+def Delete_category(request) :
+    category_id = request.POST['categoryId']
+    delete_category = Category.objects.get(id = category_id)
+    delete_category.delete()
+    return HttpResponseRedirect(reverse('cateCreatePage'))
 
 def Create_category(request) :
     # 사용자가 입력한 카테고리 data를 추출해서 DB에 저장
