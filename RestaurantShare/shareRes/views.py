@@ -18,6 +18,19 @@ def index(request) :
     # return HttpResponse('index')
 
 def Create_restaurant(request) :
+    # 외래키로 연결된 카테고리컬럼은 저장을 일반 값이 아닌 해당카테고리 레코드의 인스턴스를 넘겨줘야함
+    
+    category_id = request.POST['resCategory']
+
+    category = Category.object.get(id=category_id)
+    name = request.POST['resTitle']
+    link = request.POST['resLink']
+    content = request.POST['resContent']
+    keyword = request.POST['resLoc']
+    new_res = Restaurant(category = category, restaurant_name = name, restaurant_link = link,
+                         restaurant_content = content, restaurant_keyword = keyword)
+    new_res.save() # DB저장
+
     return HttpResponse('맛집 DB 저장합니다')
 
 def restaurantDetail(request) :
