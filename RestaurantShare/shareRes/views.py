@@ -33,9 +33,14 @@ def Create_restaurant(request) :
 
     return HttpResponse('맛집 DB 저장합니다')
 
-def restaurantDetail(request) :
+def restaurantDetail(request,res_id) : # 요청된 url로 게시글 id 가 전달됨(파라미터로 받아야함)
+    # 전달된 게시글 id에 해당하는 글을 DB 에서 추출한후 인스턴스변수에 저장
+    restarunt = Restaurant.objects.get(id=res_id)
+    # 인스턴스변수로 딕셔너리생성
+    content = {'restarunt':restarunt}
+    # 딕셔너리를 html파일로 전달해서 동적 렌더링을 진행
+    return render(request, 'shareRes/restaurantDetail.html',content)
     # return HttpResponse('restaurantDetail')
-    return render(request, 'shareRes/restaurantDetail.html')
 
 def restaurantCreate(request) :
     # return HttpResponse('restaurantCreate')
