@@ -8,9 +8,10 @@ from .models import *
 def index(request) :
     # 기존에 입력되어 있는 (혹은 새로 입력한) 카테고리 내용을 DB에서 select 함
     categories = Category.objects.all() # select 진행 후 결과 반환
-
+    restaurant = Restaurant.objects.all()
     # rendering에 사용할 dict로 구성
-    content = {'categories' : categories}
+    content = {'categories' : categories,
+                'restaurants' : restaurants}
 
     # 구성된 dict를 rendering에 사용하도록 전달
 
@@ -30,8 +31,9 @@ def Create_restaurant(request) :
     new_res = Restaurant(category = category, restaurant_name = name, restaurant_link = link,
                          restaurant_content = content, restaurant_keyword = keyword)
     new_res.save() # DB저장
-
-    return HttpResponse('맛집 DB 저장합니다')
+    # 저장된 결과를 출력하기 위해 index.html 파일을 요청
+    return HttpResponseRedirect(reverse('index'))
+    # return HttpResponse('맛집 DB 저장합니다')
 
 def restaurantDetail(request) :
     # return HttpResponse('restaurantDetail')
